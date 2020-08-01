@@ -1,3 +1,4 @@
+import { ValueService } from './../services/value.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -5,4 +6,14 @@ import { Component } from '@angular/core';
   templateUrl: './home.component.html',
 })
 export class HomeComponent {
+  values: string[] ;
+
+  constructor(private valueService: ValueService) {
+    this.GetValues();
+  }
+
+  GetValues(): void {
+    this.valueService.GetValuesFromDataBase()
+    .toPromise().then(res => this.values = res as string[]);
+  }
 }
